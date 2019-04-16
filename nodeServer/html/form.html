@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>user</title>
+		<script src="./js/ajax.js"></script>
+		<script>
+			window.onload  = function(){
+				var regBtn = document.getElementById("reg_btn");
+				var loginBtn = document.getElementById("login_btn");
+				regBtn.onclick = function(){
+					ajaxRequest('get','/user','reg')
+				}
+				loginBtn.onclick = function(){
+					ajaxRequest('get','/login.htm','login.htm')
+				}
+			}
+			function ajaxRequest(method,url,act){
+				var name = document.getElementById("name");
+				var password = document.getElementById("password");
+				ajax({
+					url:url,
+					type:method,
+					data:{'act':act,name:name.value,password:password.value},
+					success:function(data){
+						var json = eval('('+data+')');
+						if(json.ok){
+							alert('操作成功:'+json.msg);
+						}else{
+							alert('操作失败:'+json.msg);
+						}
+					},
+					error:function(){
+						alert('通信失败');
+					}
+				});
+			}
+		</script>
+	</head>
+	<body>
+		用户名:<input type="text" id="name"/><br>
+		密码:<input type="password" id="password" /><br/>
+		<input type="submit" value="注册" id="reg_btn"/>
+		<input type="submit" value="登录" id="login_btn" />
+	</body>
+</html>

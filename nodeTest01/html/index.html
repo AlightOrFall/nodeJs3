@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>面向对象写的拖拽效果</title>
+    <style>
+        #div1{
+            width:100px;
+            height:100px;
+            background: red;
+            position: absolute;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var p=new Darg('div1');
+            p.init();
+
+        }
+        function Darg(id){
+            this.oDiv=document.getElementById(id); //属性
+            this.disX=0;//属性
+            this.disY=0;//属性
+
+        }
+        Darg.prototype.init=function(){//原型  方法
+            var This=this;
+            this.oDiv.onmousedown=function(ev){
+                var oEvent=ev||event;
+                This.fnDown(oEvent);
+                return false;
+            }
+        }
+        Darg.prototype.fnDown=function(ev){//原型   方法
+            var This=this;
+            this.disX=ev.clientX-this.oDiv.offsetLeft;
+            this.disY=ev.clientY-this.oDiv.offsetTop;
+            document.onmousemove=function(ev){
+                var oEvent=ev||event;
+                This.fnMove(oEvent);
+            };
+            document.onmouseup=function(){
+                This.fnUp();
+            };
+        }
+        Darg.prototype.fnMove=function(ev){//原型
+            this.oDiv.style.left=ev.clientX-this.disX+'px';
+            this.oDiv.style.top=ev.clientY-this.disY+'px';
+        }
+        Darg.prototype.fnUp=function(){//原型
+            document.onmousemove=null;
+            document.onmouseup=null;
+        }
+    </script>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>

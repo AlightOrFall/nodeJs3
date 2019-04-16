@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta charset="UTF-8">
+		<title>鞋子</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<style>
+			#div1 {
+				width: 100px;
+				height: 100px;
+				background: red;
+				position: absolute;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+				var filePath = 'E:/file/images/';
+				var shoes = {"size":[35,43],"color":[],"price":450,"images":filePath};
+				showShoe(shoes);
+			}
+			function showShoe(shoes){
+				var filePath = '../images/';
+				var parentNode = document.getElementById("div1");
+				var childNode = document.getElementById('img');
+				for(var i = 1; i<10;i++){
+					var oneNode = childNode.cloneNode(true);
+					oneNode.setAttribute("src",filePath+(i+1)+".png");
+					parentNode.appendChild(oneNode);
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="div1">
+			<img src="" id="img">
+		</div>
+	</body>
+</html>
